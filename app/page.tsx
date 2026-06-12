@@ -1,11 +1,10 @@
+import Header from "@/components/Header/Header";
+
 export default function Home() {
   return (
     <div>
       <main>
-        <header>
-          <h1>Savings Tracker</h1>
-          <button>+ New Goal</button>
-        </header>
+        <Header />
         <section>
           <div>
             <h1>Total savings</h1>
