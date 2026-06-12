@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div>
       <Header />
-      <main className="px-4">
+      <main className="px-4 py-8">
         <section>
           <MetricCard title="Total savings" value="£11,249.00" />
           <MetricCard title="Active goals" value="7" />
