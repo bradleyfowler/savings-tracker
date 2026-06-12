@@ -7,8 +7,8 @@ import MetricCard from "@/components/MetricCard/MetricCard";
 export default function Home() {
   return (
     <div>
-      <main>
-        <Header />
+      <Header />
+      <main className="px-4">
         <section>
           <MetricCard title="Total savings" value="£11,249.00" />
           <MetricCard title="Active goals" value="7" />
