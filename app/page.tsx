@@ -1,6 +1,7 @@
 import DepositCard from "@/components/DepositCard/DepositCard";
 import GoalCard from "@/components/GoalCard/GoalCard";
 import Header from "@/components/Header/Header";
+import ListControls from "@/components/ListControls/ListControls";
 import MetricCard from "@/components/MetricCard/MetricCard";
 
 export default function Home() {
@@ -16,8 +17,7 @@ export default function Home() {
         </section>
         <section>
           <h1>Your goals</h1>
-          <button>Filters</button>
-          <button>Sort by</button>
+          <ListControls />
           <GoalCard
             title="Macbook Pro M4"
             progress={76}
