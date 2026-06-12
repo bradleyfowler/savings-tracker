@@ -1,3 +1,4 @@
+import DepositCard from "@/components/DepositCard/DepositCard";
 import Header from "@/components/Header/Header";
 import MetricCard from "@/components/MetricCard/MetricCard";
 
@@ -10,10 +11,7 @@ export default function Home() {
           <MetricCard title="Total savings" value="£11,249.00" />
           <MetricCard title="Active goals" value="7" />
           <MetricCard title="Goals completed" value="2" />
-          <div>
-            <h1>Monthly deposits</h1>
-            <div>Chart will display here</div>
-          </div>
+          <DepositCard />
         </section>
         <section>
           <h1>Your goals</h1>
