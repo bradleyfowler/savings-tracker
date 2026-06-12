@@ -1,4 +1,5 @@
 import Header from "@/components/Header/Header";
+import MetricCard from "@/components/MetricCard/MetricCard";
 
 export default function Home() {
   return (
@@ -6,18 +7,9 @@ export default function Home() {
       <main>
         <Header />
         <section>
-          <div>
-            <h1>Total savings</h1>
-            <p>£11,249.00</p>
-          </div>
-          <div>
-            <h1>Active goals</h1>
-            <p>7</p>
-          </div>
-          <div>
-            <h1>Goals completed</h1>
-            <p>2</p>
-          </div>
+          <MetricCard title="Total savings" value="£11,249.00" />
+          <MetricCard title="Active goals" value="7" />
+          <MetricCard title="Goals completed" value="2" />
           <div>
             <h1>Monthly deposits</h1>
             <div>Chart will display here</div>
