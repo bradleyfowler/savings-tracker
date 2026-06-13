@@ -16,7 +16,7 @@ export default function Home() {
           <DepositCard />
         </section>
         <section>
-          <h1>Your goals</h1>
+          <h1 className="text-[32px] font-bold mb-5">Your goals</h1>
           <ListControls />
           <GoalCard
             title="Macbook Pro M4"
