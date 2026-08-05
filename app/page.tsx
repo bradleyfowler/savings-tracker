@@ -17,7 +17,7 @@ export default function Home() {
         </section>
         <section>
           <div className="mb-5">
-            <h1 className="text-[32px] font-bold">Your goals</h1>
+            <h1 className="text-[32px] font-bold mb-5">Your goals</h1>
             <ListControls />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

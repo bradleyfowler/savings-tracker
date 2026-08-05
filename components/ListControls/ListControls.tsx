@@ -4,7 +4,7 @@ const ListControls = () => {
   return (
     <div className="flex items-center justify-center gap-4">
       <Button type="filter">Filters</Button>
-      <Button type="filter">Sort by</Button>
+      <Button type="sort">Sort by</Button>
     </div>
   );
 };
