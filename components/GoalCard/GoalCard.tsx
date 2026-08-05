@@ -11,6 +11,8 @@ const GoalCard = ({
   title: string;
   complete?: boolean;
 }) => {
+  const isComplete = progress === 100;
+
   return (
     <div className="rounded-2xl bg-[#1f1f1f] bg-[url('/pattern-grid.svg')] border border-solid border-[#3C3B40]">
       <div className="flex justify-between align-middle p-4 mb-8">
@@ -22,8 +24,15 @@ const GoalCard = ({
         )}
       </div>
       <div className="p-4">
-        <p className="text-[44px] mb-4 font-bold">{progress}%</p>
-        <progress value={progress} max="100"></progress>
+        <p className={`mb-4 text-[44px] font-bold ${isComplete ? "text-[#4ADE80]" : "text-[#ff5722]"}`}>
+          {progress}%
+        </p>
+        <div className="mb-4 h-3 w-full overflow-hidden rounded-full bg-[#2D2B31]">
+          <div
+            className={`h-3 rounded-full transition-all ${isComplete ? "bg-[#4ADE80]" : "bg-[#ff5722]"}`}
+            style={{ width: `${Math.min(progress, 100)}%` }}
+          />
+        </div>
         <div className="flex gap-4">
           <p>{amount}</p>
           <p>Due {dueDate}</p>
