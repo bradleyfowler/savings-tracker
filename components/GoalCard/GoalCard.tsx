@@ -24,7 +24,7 @@ const GoalCard = ({
         )}
       </div>
       <div className="p-4">
-        <p className={`mb-4 text-[44px] font-bold ${isComplete ? "text-[#4ADE80]" : "text-[#ff5722]"}`}>
+        <p className={`mb-4 text-[44px] font-heading ${isComplete ? "text-[#4ADE80]" : "text-[#ff5722]"}`}>
           {progress}%
         </p>
         <div className="mb-4 h-3 w-full overflow-hidden rounded-full bg-[#2D2B31]">

@@ -11,7 +11,7 @@ const Header = () => {
           width={32}
           height={32}
         />
-        <h1 className="text-xl tracking-[0.3px] font-bold">Savings Tracker</h1>
+        <h1 className="text-xl tracking-[0.3px] font-heading">Savings Tracker</h1>
       </div>
       <div className="mr-4">
         <Button type="primary">+ New goal</Button>
