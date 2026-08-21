@@ -16,7 +16,7 @@ const GoalCard = ({
   return (
     <div className="rounded-2xl bg-[#1f1f1f] bg-[url('/pattern-grid.svg')] border border-solid border-[#3C3B40]">
       <div className="flex justify-between align-middle p-4 mb-8">
-        <h1 className="text-xl font-bold">{title}</h1>
+        <h1 className="text-preset-4">{title}</h1>
         {complete && (
           <span className="text-[#4ADE80] bg-[#1A3D2B] border-2 border-solid border-[#4ADE80] rounded-full font-bold py-1.5 px-2.5 text-sm">
             COMPLETE
@@ -24,7 +24,7 @@ const GoalCard = ({
         )}
       </div>
       <div className="p-4">
-        <p className={`mb-4 text-[44px] font-heading ${isComplete ? "text-[#4ADE80]" : "text-[#ff5722]"}`}>
+        <p className={`mb-4 text-preset-1-mobile {isComplete ? "text-[#4ADE80]" : "text-[#ff5722]"}`}>
           {progress}%
         </p>
         <div className="mb-4 h-3 w-full overflow-hidden rounded-full bg-[#2D2B31]">
@@ -34,8 +34,8 @@ const GoalCard = ({
           />
         </div>
         <div className="flex gap-4">
-          <p>{amount}</p>
-          <p>Due {dueDate}</p>
+          <p className="text-preset-6">{amount}</p>
+          <p className="text-preset-6">Due {dueDate}</p>
         </div>
       </div>
     </div>
