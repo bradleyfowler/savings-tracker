@@ -1,7 +1,11 @@
 import Image from "next/image";
 import Button from "@/components/Button/Button";
 
-const Header = () => {
+type HeaderProps = {
+  onNewGoal: () => void;
+};
+
+const Header = ({ onNewGoal }: HeaderProps) => {
   return (
     <header className="flex items-center justify-between h-18 border-b-gray-500 border-b">
       <div className="flex items-center gap-3 ml-4">
@@ -14,7 +18,7 @@ const Header = () => {
         <h1 className="text-preset-3 font-heading">Savings Tracker</h1>
       </div>
       <div className="mr-4">
-        <Button type="primary">+ New goal</Button>
+        <Button type="primary" onClick={onNewGoal}>+ New goal</Button>
       </div>
     </header>
   );

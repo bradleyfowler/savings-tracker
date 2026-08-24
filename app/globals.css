@@ -30,6 +30,10 @@ body {
   font-family: var(--font-body);
 }
 
+dialog::backdrop {
+  background: #101010e6;
+}
+
 .font-heading {
   font-family: var(--font-heading);
 }
@@ -86,3 +90,4 @@ body {
   font-size: 11px;
   font-weight: 600;
 }
+

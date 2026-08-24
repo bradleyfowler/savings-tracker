@@ -1,13 +1,24 @@
+"use client";
+import { useRef } from "react";
+
 import DepositCard from "@/components/DepositCard/DepositCard";
 import GoalCard from "@/components/GoalCard/GoalCard";
 import Header from "@/components/Header/Header";
 import ListControls from "@/components/ListControls/ListControls";
 import MetricCard from "@/components/MetricCard/MetricCard";
+import Modal from "@/components/Modal/Modal";
 
 export default function Home() {
+  const modalRef = useRef<HTMLDialogElement>(null);
+
+  const openModal = () => {
+    modalRef.current?.showModal();
+  };
+
   return (
     <div>
-      <Header />
+      <Modal modalRef={modalRef} />
+      <Header onNewGoal={openModal} />
       <main className="px-4 py-8">
         <section>
           <MetricCard title="Total savings" value="£11,249.00" />

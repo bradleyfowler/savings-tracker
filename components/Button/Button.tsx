@@ -3,17 +3,19 @@ import { ReactNode } from "react";
 type ButtonProps = {
   children: ReactNode;
   type: "primary" | "filter" | "sort";
+  onClick?: () => void;
 };
 
-const Button = ({ type, children }: ButtonProps) => {
+const Button = ({ type, children, onClick }: ButtonProps) => {
   return (
     <button
-      className={`flex items-center gap-2 justify-center 
+      className={`flex items-center gap-2 justify-center hover:cursor-pointer
         ${
           type === "primary"
             ? "bg-[#ff5722] rounded-full px-5 py-3 text-[#101010]"
             : "bg-[#1F1F1F] border-2 border-[#3C3B40] rounded-full w-full py-3 text-white"
         }`}
+        onClick={onClick}
     >
       {type === "filter" && (
         <img src="/icon-filter.svg" alt="Filter" className="h-5 w-5" />
