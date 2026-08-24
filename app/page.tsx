@@ -2,6 +2,7 @@
 import { useRef } from "react";
 
 import DepositCard from "@/components/DepositCard/DepositCard";
+import EmptyGoalsCards from "@/components/EmptyGoalsCard/EmptyGoalsCard";
 import GoalCard from "@/components/GoalCard/GoalCard";
 import Header from "@/components/Header/Header";
 import ListControls from "@/components/ListControls/ListControls";
@@ -81,6 +82,7 @@ export default function Home() {
               amount="£0 of £1,200"
               dueDate="1 Aug 2026"
             />
+            <EmptyGoalsCards onNewGoal={openModal} />
           </div>
         </section>
       </main>
