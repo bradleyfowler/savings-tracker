@@ -1,12 +1,32 @@
-import type { RefObject } from "react";
+import type { RefObject, SubmitEvent } from "react";
+import { Goal } from "@/types/goals";
 
 import Button from "../Button/Button";
 
 type ModalProps = {
   modalRef: RefObject<HTMLDialogElement | null>;
+  addGoal: (goal: Goal) => void;
 };
 
-const Modal = ({ modalRef }: ModalProps) => {
+const Modal = ({ modalRef, addGoal }: ModalProps) => {
+  const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+
+    const newGoal: Goal = {
+      id: Date.now(),
+      name: String(formData.get("name")),
+      target: Number(formData.get("amount")),
+      deadline: String(formData.get("deadline")),
+      deposits: [],
+    }
+
+    addGoal(newGoal);
+    event.currentTarget.reset();
+    closeModal();
+  }
+
   const closeModal = () => {
     modalRef.current?.close();
   };
@@ -27,7 +47,7 @@ const Modal = ({ modalRef }: ModalProps) => {
         </button>
       </div>
       <hr className="my-6 w-full border-[#3c3b40]" />
-      <form>
+      <form onSubmit={handleSubmit}> 
         <div className="flex flex-col gap-2 mb-6">
           <label htmlFor="name">Goal name</label>
           <input
