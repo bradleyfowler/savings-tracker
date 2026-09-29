@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import PageLayout from "@/components/PageLayout/PageLayout";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -12,11 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className="h-full antialiased"
-    >
-      <body className="bg-[#101010] text-white">{children}</body>
+    <html lang="en" className="h-full antialiased">
+      <body className="bg-[#101010] text-white">
+        <PageLayout>{children}</PageLayout>
+      </body>
     </html>
   );
 }

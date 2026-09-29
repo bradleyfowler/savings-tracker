@@ -3,13 +3,15 @@ import { ReactNode } from "react";
 type ButtonProps = {
   children: ReactNode;
   type: "primary" | "filter" | "sort";
+  fullWidth?: boolean;
   onClick?: () => void;
 };
 
-const Button = ({ type, children, onClick }: ButtonProps) => {
+const Button = ({ type, children, fullWidth = false, onClick }: ButtonProps) => {
   return (
     <button
       className={`flex items-center gap-2 justify-center hover:cursor-pointer
+        ${fullWidth ? "w-full" : ""}
         ${
           type === "primary"
             ? "bg-[#ff5722] rounded-full px-5 py-3 text-[#101010]"

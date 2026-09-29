@@ -1,31 +1,19 @@
 "use client";
-import { useRef, useState } from "react";
+import Link from 'next/link'
 import DepositCard from "@/components/DepositCard/DepositCard";
 import EmptyGoalsCards from "@/components/EmptyGoalsCard/EmptyGoalsCard";
 import GoalCard from "@/components/GoalCard/GoalCard";
-import Header from "@/components/Header/Header";
 import ListControls from "@/components/ListControls/ListControls";
 import MetricCard from "@/components/MetricCard/MetricCard";
-import Modal from "@/components/Modal/Modal";
-import type { Goal } from "@/types/goals";
+import { useGoals } from "@/context/GoalsContext";
+import { useModal } from "@/context/ModalContext";
 
 export default function Home() {
-  const modalRef = useRef<HTMLDialogElement>(null);
-  const [goals, setGoals] = useState<Goal[]>([]);
-
-  const addGoal = (newGoal: Goal) => {
-    setGoals((currentGoals) => [...currentGoals, newGoal]);
-  };
-
-  const openModal = () => {
-    modalRef.current?.showModal();
-  };
+  const { goals } = useGoals();
+  const { openModal } = useModal();
 
   return (
     <div>
-      <Modal addGoal={addGoal} modalRef={modalRef} />
-      <Header onNewGoal={openModal} />
-      <main className="px-4 py-8">
         <section>
           <MetricCard title="Total savings" value="£11,249.00" />
           <MetricCard title="Active goals" value="7" />
@@ -43,19 +31,19 @@ export default function Home() {
             ) : (
               goals.map((goal) => {
                 return (
-                  <GoalCard
-                    key={goal.id}
-                    title={goal.name}
-                    progress={76}
-                    amount="£1,900 of £2,499"
-                    dueDate={goal.deadline}
-                  />
+                  <Link key={goal.id} href={`/goals/${goal.id}`}>
+                    <GoalCard
+                      title={goal.name}
+                      progress={76}
+                      amount="£1,900 of £2,499"
+                      dueDate={goal.deadline}
+                    />
+                  </Link>
                 );
               })
             )}
           </div>
         </section>
-      </main>
     </div>
   );
 }

@@ -1,14 +1,16 @@
 import type { RefObject, SubmitEvent } from "react";
 import { Goal } from "@/types/goals";
+import { useGoals } from "@/context/GoalsContext";
 
 import Button from "../Button/Button";
 
 type ModalProps = {
   modalRef: RefObject<HTMLDialogElement | null>;
-  addGoal: (goal: Goal) => void;
 };
 
-const Modal = ({ modalRef, addGoal }: ModalProps) => {
+const Modal = ({ modalRef }: ModalProps) => {
+  const { addGoal } = useGoals();
+
   const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
