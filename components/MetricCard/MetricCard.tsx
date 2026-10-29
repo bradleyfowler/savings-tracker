@@ -1,4 +1,4 @@
-const MetricCard = ({ title, value }: { title: string; value: string }) => {
+const MetricCard = ({ title, value }: { title: string; value: number | string }) => {
   return (
     <div className="rounded-2xl bg-linear-to-r from-[#b92b09] to-[#ff5722] mb-4">
       <div className="p-4">

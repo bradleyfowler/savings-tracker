@@ -16,8 +16,11 @@ const Modal = ({ modalRef }: ModalProps) => {
 
     const formData = new FormData(event.currentTarget);
 
+    const date = new Date();
+
     const newGoal: Goal = {
-      id: Date.now(),
+      id: crypto.randomUUID(),
+      createdAt: date,
       name: String(formData.get("name")),
       target: Number(formData.get("amount")),
       deadline: String(formData.get("deadline")),

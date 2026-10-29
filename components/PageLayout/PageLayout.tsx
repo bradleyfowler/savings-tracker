@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import type { Goal } from "@/types/goals";
+import type { Deposit, Goal } from "@/types/goals";
 
 import Header from "@/components/Header/Header";
 import Modal from "@/components/Modal/Modal";
@@ -16,6 +16,16 @@ const PageLayout = ({ children }) => {
     setGoals((currentGoals) => [...currentGoals, newGoal]);
   };
 
+  const addDeposit = (newDeposit: Deposit, id: string) => {
+    setGoals((currentGoals) =>
+      currentGoals.map((goal) =>
+        goal.id === id
+          ? { ...goal, deposits: [...goal.deposits, newDeposit] }
+          : goal,
+      ),
+    );
+  };
+
   const openModal = () => {
     modalRef.current?.showModal();
   };
@@ -23,6 +33,7 @@ const PageLayout = ({ children }) => {
   const goalsContextValue: GoalsContextType = {
     goals,
     addGoal,
+    addDeposit,
   };
 
   return (

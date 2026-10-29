@@ -1,9 +1,10 @@
 import { createContext, useContext } from "react";
-import type { Goal } from "@/types/goals";
+import type { Deposit, Goal } from "@/types/goals";
 
 export type GoalsContextType = {
   goals: Goal[];
   addGoal: (goal: Goal) => void;
+  addDeposit: (deposit: Deposit, id: string) => void;
 };
 
 export const GoalsContext = createContext<GoalsContextType | null>(null);
