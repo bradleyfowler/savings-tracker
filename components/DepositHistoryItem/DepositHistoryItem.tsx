@@ -1,5 +1,5 @@
 type DepositHistoryItemProps = {
-  note: string;
+  note: string | null;
   amount: number;
   createdAt: Date;
 };

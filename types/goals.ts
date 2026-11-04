@@ -1,15 +1,4 @@
-export type Deposit = {
-  id: string;
-  amount: number;
-  createdAt: Date;
-  note: string;
-};
+import type { Tables } from "@/types/database.types";
 
-export type Goal = {
-  id: string;
-  createdAt: Date;
-  name: string;
-  target: number;
-  deadline: string;
-  deposits: Deposit[];
-};
+export type Goal = Tables<"goals">;
+export type Deposit = Tables<"deposits">;

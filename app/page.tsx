@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 
 import DepositCard from "@/components/DepositCard/DepositCard";
@@ -7,14 +6,14 @@ import GoalCard from "@/components/GoalCard/GoalCard";
 import ListControls from "@/components/ListControls/ListControls";
 import MetricCard from "@/components/MetricCard/MetricCard";
 
-import { useGoals } from "@/context/GoalsContext";
-import { useModal } from "@/context/ModalContext";
-
+import { getAllGoals } from "@/helpers/queries";
+import { getAuthenticatedUser } from "@/helpers/auth";
 import { getGoalProgress, getTotalSavings } from "@/helpers/goal-calculations";
 
-export default function Home() {
-  const { goals } = useGoals();
-  const { openModal } = useModal();
+export default async function Home() {
+  const { supabase, user } = await getAuthenticatedUser();
+  const isAuthenticated = Boolean(user);
+  const goals = user ? await getAllGoals(supabase, user.id) : [];
 
   return (
     <div>
@@ -34,7 +33,7 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {goals.length === 0 ? (
-            <EmptyGoalsCards onNewGoal={openModal} />
+            <EmptyGoalsCards isAuthenticated={isAuthenticated} />
           ) : (
             goals.map((goal) => {
               const { saved, percentage } = getGoalProgress(
@@ -47,7 +46,7 @@ export default function Home() {
                   <GoalCard
                     title={goal.name}
                     progress={percentage}
-                    amount={`£${saved} of £${goal.target}`}
+                    amount={`£${saved} of £${goal.target_amount}`}
                     dueDate={goal.deadline}
                   />
                 </Link>

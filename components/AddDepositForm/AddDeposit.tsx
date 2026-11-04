@@ -1,33 +1,24 @@
+"use client";
 import { SubmitEvent } from "react";
 import { useParams } from "next/navigation";
 
 import { Deposit } from "@/types/goals";
 
-import { useGoals } from "@/context/GoalsContext";
-
 import Button from "@/components/Button/Button";
+import createDeposit from "@/actions/deposits";
 
 const AddDepositForm = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { addDeposit } = useGoals();
-
-  const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
-    const date = new Date();
-
+  const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
 
-    const newDeposit: Deposit = {
-      id: crypto.randomUUID(),
-      createdAt: date,
-      amount: Number(formData.get("amount")),
-      note: String(formData.get("note")),
-    };
+    await createDeposit(new FormData(form), id);
 
-    addDeposit(newDeposit, id);
-    event.currentTarget.reset();
+
+    form.reset();
   };
 
   return (

@@ -6,7 +6,7 @@ const GoalCard = ({
   complete,
 }: {
   amount: string;
-  dueDate: string;
+  dueDate: string | null;
   progress: number;
   title: string;
   complete?: boolean;
@@ -24,7 +24,9 @@ const GoalCard = ({
         )}
       </div>
       <div className="p-4">
-        <p className={`mb-4 text-preset-1-mobile {isComplete ? "text-[#4ADE80]" : "text-[#ff5722]"}`}>
+        <p
+          className={`mb-4 text-preset-1-mobile {isComplete ? "text-[#4ADE80]" : "text-[#ff5722]"}`}
+        >
           {progress}%
         </p>
         <div className="mb-4 h-3 w-full overflow-hidden rounded-full bg-[#2D2B31]">

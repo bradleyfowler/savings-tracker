@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import PageLayout from "@/components/PageLayout/PageLayout";
+import Header from "@/components/Header/Header";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,7 +15,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <body className="bg-[#101010] text-white">
-        <PageLayout>{children}</PageLayout>
+        <Header />
+        <main className="px-4 py-8">{children}</main>
       </body>
     </html>
   );

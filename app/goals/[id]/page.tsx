@@ -1,27 +1,30 @@
-"use client";
+import { notFound } from "next/navigation";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 
 import { Deposit } from "@/types/goals";
 
 import AddDepositForm from "@/components/AddDepositForm/AddDeposit";
 import DepositHistoryItem from "@/components/DepositHistoryItem/DepositHistoryItem";
 
-import { useGoals } from "@/context/GoalsContext";
-
 import { getGoalProgress } from "@/helpers/goal-calculations";
+import { getGoal, getAllDeposits } from "@/helpers/queries";
+import { getAuthenticatedUser } from "@/helpers/auth";
 
-const GoalPage = () => {
-  const { id } = useParams<{ id: string }>();
+const GoalPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
+  const { supabase, user } = await getAuthenticatedUser();
 
-  const { goals } = useGoals();
+  if (!user) {
+    notFound();
+  }
 
-  const goal = goals.find((goal) => goal.id == id);
+  const goal = await getGoal(id, user.id, supabase);
+  const goalDeposits = await getAllDeposits(supabase, id);
 
   const { saved, percentage } = getGoalProgress(1000, goal?.deposits ?? []);
 
   const renderDeposits = () => {
-    const deposits: Deposit[] = goal?.deposits ?? [];
+    const deposits: Deposit[] = goalDeposits ?? [];
 
     if (deposits.length === 0) {
       return null;
@@ -33,7 +36,7 @@ const GoalPage = () => {
           key={index}
           note={deposit.note}
           amount={deposit.amount}
-          createdAt={deposit.createdAt}
+          createdAt={new Date(deposit.created_at)}
         />
       );
     });
@@ -69,7 +72,7 @@ const GoalPage = () => {
         <p className="text-preset-6 text-[#898A8B]">{goal?.deadline}</p>
         <p className="text-preset-6 text-[#898A8B]">
           Created{" "}
-          {goal?.createdAt.toLocaleDateString("en-GB", {
+          {new Date(goal?.created_at).toLocaleDateString("en-GB", {
             day: "numeric",
             month: "long",
             year: "numeric",
