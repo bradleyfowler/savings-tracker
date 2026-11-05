@@ -1,17 +1,22 @@
-import { Deposit, Goal } from "@/types/goals";
+import type { Deposit, Goal } from "@/types/goals";
 
-export function getGoalProgress(target: number, deposits: Deposit[]) {
+export function getGoalProgress(targetAmount: number, deposits: Deposit[]) {
   const saved = deposits.reduce(
     (accumulator, currentValue) => accumulator + currentValue.amount,
     0,
   );
 
-  return { saved, percentage: (saved / target) * 100 };
+  return { saved, percentage: (saved / targetAmount) * 100 };
 }
 
-export function getTotalSavings(goals: Goal[]) {
+export function getTotalSavings(goals: Goal[], deposits: Deposit[]) {
   const savedPerGoal = goals.map((goal) => {
-    const { saved } = getGoalProgress(1000, goal?.deposits ?? []);
+    const goalDeposits = deposits.filter(
+      (deposit) => deposit.goal_id === goal.id,
+    );
+
+    const { saved } = getGoalProgress(goal.target_amount, goalDeposits);
+
     return saved;
   });
 

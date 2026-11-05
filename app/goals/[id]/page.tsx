@@ -7,7 +7,7 @@ import AddDepositForm from "@/components/AddDepositForm/AddDeposit";
 import DepositHistoryItem from "@/components/DepositHistoryItem/DepositHistoryItem";
 
 import { getGoalProgress } from "@/helpers/goal-calculations";
-import { getGoal, getAllDeposits } from "@/helpers/queries";
+import { getGoal, getGoalDeposits } from "@/helpers/queries";
 import { getAuthenticatedUser } from "@/helpers/auth";
 
 const GoalPage = async ({ params }: { params: Promise<{ id: string }> }) => {
@@ -19,9 +19,9 @@ const GoalPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   }
 
   const goal = await getGoal(id, user.id, supabase);
-  const goalDeposits = await getAllDeposits(supabase, id);
+  const goalDeposits = await getGoalDeposits(supabase, id);
 
-  const { saved, percentage } = getGoalProgress(1000, goal?.deposits ?? []);
+  const { saved, percentage } = getGoalProgress(goal.target_amount, goalDeposits);
 
   const renderDeposits = () => {
     const deposits: Deposit[] = goalDeposits ?? [];
@@ -82,7 +82,7 @@ const GoalPage = async ({ params }: { params: Promise<{ id: string }> }) => {
       <div className="rounded-2xl mb-6 bg-[#1f1f1f] border border-solid border-[#3C3B40]">
         <div className="p-4">
           <p className="mb-4 text-preset-1-mobile text-[#ff5722]">
-            {percentage}%
+            {Math.round(percentage)}%
           </p>
           <div className="mb-4 h-3 w-full overflow-hidden rounded-full bg-[#2D2B31]">
             <div
@@ -96,7 +96,7 @@ const GoalPage = async ({ params }: { params: Promise<{ id: string }> }) => {
               <span className="text-[#898A8B]">Saved so far</span>
             </p>
             <p className="flex flex-col text-preset-6">
-              of £{goal?.target} <span className="text-[#898A8B]">Target</span>
+              of £{goal?.target_amount} <span className="text-[#898A8B]">Target</span>
             </p>
           </div>
         </div>

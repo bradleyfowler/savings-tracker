@@ -6,7 +6,7 @@ import GoalCard from "@/components/GoalCard/GoalCard";
 import ListControls from "@/components/ListControls/ListControls";
 import MetricCard from "@/components/MetricCard/MetricCard";
 
-import { getAllGoals } from "@/helpers/queries";
+import { getAllGoals, getDepoitsForGoals } from "@/helpers/queries";
 import { getAuthenticatedUser } from "@/helpers/auth";
 import { getGoalProgress, getTotalSavings } from "@/helpers/goal-calculations";
 
@@ -14,16 +14,20 @@ export default async function Home() {
   const { supabase, user } = await getAuthenticatedUser();
   const isAuthenticated = Boolean(user);
   const goals = user ? await getAllGoals(supabase, user.id) : [];
+  const depositsForGoals = await getDepoitsForGoals(
+    supabase,
+    goals.map((goal) => goal.id),
+  );
 
   return (
     <div>
       <section>
         <MetricCard
           title="Total savings"
-          value={`£${getTotalSavings(goals)}`}
+          value={`£${getTotalSavings(goals, depositsForGoals)}`}
         />
         <MetricCard title="Active goals" value={goals.length} />
-        <MetricCard title="Goals completed" value={7} />
+        <MetricCard title="Goals completed" value={0} />
         <DepositCard />
       </section>
       <section>
@@ -36,16 +40,19 @@ export default async function Home() {
             <EmptyGoalsCards isAuthenticated={isAuthenticated} />
           ) : (
             goals.map((goal) => {
+              const goalDeposits = depositsForGoals.filter(
+                (deposit) => deposit.goal_id === goal.id,
+              );
               const { saved, percentage } = getGoalProgress(
-                1000,
-                goal?.deposits ?? [],
+                goal.target_amount,
+                goalDeposits,
               );
 
               return (
                 <Link key={goal.id} href={`/goals/${goal.id}`}>
                   <GoalCard
                     title={goal.name}
-                    progress={percentage}
+                    progress={Math.round(percentage)}
                     amount={`£${saved} of £${goal.target_amount}`}
                     dueDate={goal.deadline}
                   />
