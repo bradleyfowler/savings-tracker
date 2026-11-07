@@ -4,12 +4,17 @@ import Image from "next/image";
 
 import Button from "@/components/Button/Button";
 import Modal from "@/components/Modal/Modal";
+import GoalForm from "@/components/GoalForm/GoalForm";
 
 const Header = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const onNewGoal = () => {
     modalRef.current?.showModal();
+  };
+
+  const closeModal = () => {
+    modalRef.current?.close();
   };
 
   return (
@@ -24,11 +29,13 @@ const Header = () => {
         <h1 className="text-preset-3 font-heading">Savings Tracker</h1>
       </div>
       <div className="mr-4">
-        <Button type="primary" onClick={onNewGoal}>
+        <Button variant="primary" onClick={onNewGoal}>
           + New goal
         </Button>
       </div>
-      <Modal modalRef={modalRef} />
+      <Modal title="New goal" closeModal={closeModal} modalRef={modalRef}>
+        <GoalForm closeModal={closeModal} />
+      </Modal>
     </header>
   );
 };

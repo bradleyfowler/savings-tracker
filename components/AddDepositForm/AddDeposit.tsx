@@ -42,7 +42,7 @@ const AddDepositForm = () => {
           />
         </div>
         <div className="w-full">
-          <Button type="primary" fullWidth>
+          <Button variant="primary" fullWidth>
             Add funds
           </Button>
         </div>

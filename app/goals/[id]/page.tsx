@@ -5,6 +5,7 @@ import { Deposit } from "@/types/goals";
 
 import AddDepositForm from "@/components/AddDepositForm/AddDeposit";
 import DepositHistoryItem from "@/components/DepositHistoryItem/DepositHistoryItem";
+import GoalDetailsHeader from "@/components/GoalDetailsHeader/GoalDetailsHeader";
 
 import { getGoalProgress } from "@/helpers/goal-calculations";
 import { getGoal, getGoalDeposits } from "@/helpers/queries";
@@ -21,7 +22,10 @@ const GoalPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const goal = await getGoal(id, user.id, supabase);
   const goalDeposits = await getGoalDeposits(supabase, id);
 
-  const { saved, percentage } = getGoalProgress(goal.target_amount, goalDeposits);
+  const { saved, percentage } = getGoalProgress(
+    goal.target_amount,
+    goalDeposits,
+  );
 
   const renderDeposits = () => {
     const deposits: Deposit[] = goalDeposits ?? [];
@@ -44,29 +48,7 @@ const GoalPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <div>
-      <div className="flex flex-row justify-between">
-        <div>
-          <Link
-            className="flex flex-row gap-1 text-preset-6 text-[#898A8B]"
-            href="/"
-          >
-            <img
-              src="/icon-chevron-left.svg"
-              alt="Chevron Left"
-              className="h-5 w-5"
-            />
-            Back
-          </Link>
-        </div>
-        <div className="flex gap-3">
-          <Link className="text-preset-6 text-[#898A8B]" href="/">
-            Edit goal
-          </Link>
-          <Link className="text-preset-6 text-[#EF4444]" href="/">
-            Delete goal
-          </Link>
-        </div>
-      </div>
+      <GoalDetailsHeader goalName={goal.name} />
       <h1 className="text-preset-1-mobile">{goal?.name}</h1>
       <div className="flex gap-4 mb-10">
         <p className="text-preset-6 text-[#898A8B]">{goal?.deadline}</p>
@@ -96,7 +78,8 @@ const GoalPage = async ({ params }: { params: Promise<{ id: string }> }) => {
               <span className="text-[#898A8B]">Saved so far</span>
             </p>
             <p className="flex flex-col text-preset-6">
-              of £{goal?.target_amount} <span className="text-[#898A8B]">Target</span>
+              of £{goal?.target_amount}
+              <span className="text-[#898A8B]">Target</span>
             </p>
           </div>
         </div>

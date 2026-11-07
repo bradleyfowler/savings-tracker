@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import Button from "@/components/Button/Button";
+import GoalForm from "@/components/GoalForm/GoalForm";
 import Modal from "@/components/Modal/Modal";
 
 const EmptyGoalsCard = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
@@ -11,6 +12,10 @@ const EmptyGoalsCard = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
 
   const onNewGoal = () => {
     modalRef.current?.showModal();
+  };
+
+  const closeModal = () => {
+    modalRef.current?.close();
   };
 
   return (
@@ -33,10 +38,12 @@ const EmptyGoalsCard = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
         </p>
         {isAuthenticated ? (
           <>
-            <Button type="primary" onClick={onNewGoal}>
+            <Button variant="primary" onClick={onNewGoal}>
               + Create your first goal
             </Button>
-            <Modal modalRef={modalRef} />
+            <Modal title="New goal" closeModal={closeModal} modalRef={modalRef}>
+              <GoalForm closeModal={closeModal} />
+            </Modal>
           </>
         ) : (
           process.env.NODE_ENV === "development" && (
