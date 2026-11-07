@@ -57,6 +57,22 @@ export async function addGoal(
   return data;
 }
 
+export async function deleteGoalAndDeposits(
+  supabase: SupabaseClient,
+  userId: string,
+  goalId: string,
+) {
+  const { error } = await supabase
+    .from("goals")
+    .delete()
+    .eq("id", goalId)
+    .eq("user_id", userId);
+
+  if (error) {
+    throw new Error("Failed to delete goal.");
+  }
+}
+
 export async function addDeposit(
   supabase: SupabaseClient,
   deposit: TablesInsert<"deposits">,

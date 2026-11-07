@@ -48,7 +48,7 @@ const GoalPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <div>
-      <GoalDetailsHeader goalName={goal.name} />
+      <GoalDetailsHeader goalId={goal.id} goalName={goal.name} />
       <h1 className="text-preset-1-mobile">{goal?.name}</h1>
       <div className="flex gap-4 mb-10">
         <p className="text-preset-6 text-[#898A8B]">{goal?.deadline}</p>

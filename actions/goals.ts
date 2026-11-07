@@ -1,8 +1,9 @@
 "use server";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 import { getAuthenticatedUser } from "@/helpers/auth";
-import { addGoal } from "@/helpers/queries";
+import { addGoal, deleteGoalAndDeposits } from "@/helpers/queries";
 
 export default async function createGoal(formData: FormData) {
   const { supabase, user } = await getAuthenticatedUser();
@@ -25,4 +26,16 @@ export default async function createGoal(formData: FormData) {
   revalidatePath("/");
 
   return;
+}
+
+export async function deleteGoal(goalId: string) {
+  const { supabase, user } = await getAuthenticatedUser();
+
+  if (!user) {
+    return { error: "You must be signed in to create a goal." };
+  }
+
+  await deleteGoalAndDeposits(supabase, user.id, goalId);
+
+  redirect("/");
 }

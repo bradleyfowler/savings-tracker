@@ -8,9 +8,10 @@ import Modal from "@/components/Modal/Modal";
 
 type GoalDetailsProps = {
   goalName: string;
+  goalId: string;
 };
 
-const GoalDetailsHeader = ({ goalName }: GoalDetailsProps) => {
+const GoalDetailsHeader = ({ goalName, goalId }: GoalDetailsProps) => {
   const [action, setAction] = useState<"edit" | "delete" | null>(null);
   const modalRef = useRef<HTMLDialogElement>(null);
 
@@ -62,7 +63,9 @@ const GoalDetailsHeader = ({ goalName }: GoalDetailsProps) => {
         description={action === "delete" ? modalDescription : ""}
       >
         {action === "edit" && <GoalForm closeModal={closeModal} />}
-        {action === "delete" && <DeleteConfirmation />}
+        {action === "delete" && (
+          <DeleteConfirmation closeModal={closeModal} goalId={goalId} />
+        )}
       </Modal>
     </div>
   );
