@@ -1,5 +1,5 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { TablesInsert } from "@/types/database.types";
+import { TablesInsert, TablesUpdate } from "@/types/database.types";
 
 import type { Deposit, Goal } from "@/types/goals";
 
@@ -52,6 +52,27 @@ export async function addGoal(
 
   if (error) {
     throw new Error("Failed to create goal.");
+  }
+
+  return data;
+}
+
+export async function editSingleGoal(
+  userId: string,
+  goalId: string,
+  supabase: SupabaseClient,
+  goal: TablesUpdate<"goals">,
+): Promise<Goal> {
+  const { data, error } = await supabase
+    .from("goals")
+    .update(goal)
+    .eq("id", goalId)
+    .eq("user_id", userId)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error("Failed to update goal.");
   }
 
   return data;

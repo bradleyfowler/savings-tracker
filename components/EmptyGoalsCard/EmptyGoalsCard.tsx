@@ -42,7 +42,7 @@ const EmptyGoalsCard = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
               + Create your first goal
             </Button>
             <Modal title="New goal" closeModal={closeModal} modalRef={modalRef}>
-              <GoalForm closeModal={closeModal} />
+              <GoalForm action="add" closeModal={closeModal} />
             </Modal>
           </>
         ) : (

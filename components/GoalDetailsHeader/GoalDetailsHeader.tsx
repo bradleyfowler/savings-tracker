@@ -2,16 +2,17 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 
+import { Goal } from "@/types/goals";
+
 import DeleteConfirmation from "@/components/DeleteConfirmation/DeleteConfirmation";
 import GoalForm from "@/components/GoalForm/GoalForm";
 import Modal from "@/components/Modal/Modal";
 
 type GoalDetailsProps = {
-  goalName: string;
-  goalId: string;
+  goal: Goal;
 };
 
-const GoalDetailsHeader = ({ goalName, goalId }: GoalDetailsProps) => {
+const GoalDetailsHeader = ({ goal }: GoalDetailsProps) => {
   const [action, setAction] = useState<"edit" | "delete" | null>(null);
   const modalRef = useRef<HTMLDialogElement>(null);
 
@@ -57,14 +58,16 @@ const GoalDetailsHeader = ({ goalName, goalId }: GoalDetailsProps) => {
         </button>
       </div>
       <Modal
-        title={action === "edit" ? "Edit goal" : `Delete ${goalName}?`}
+        title={action === "edit" ? "Edit goal" : `Delete ${goal?.name}?`}
         modalRef={modalRef}
         closeModal={closeModal}
         description={action === "delete" ? modalDescription : ""}
       >
-        {action === "edit" && <GoalForm closeModal={closeModal} />}
+        {action === "edit" && (
+          <GoalForm goal={goal} action={action} closeModal={closeModal} />
+        )}
         {action === "delete" && (
-          <DeleteConfirmation closeModal={closeModal} goalId={goalId} />
+          <DeleteConfirmation closeModal={closeModal} goalId={goal?.id} />
         )}
       </Modal>
     </div>

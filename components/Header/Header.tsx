@@ -34,7 +34,7 @@ const Header = () => {
         </Button>
       </div>
       <Modal title="New goal" closeModal={closeModal} modalRef={modalRef}>
-        <GoalForm closeModal={closeModal} />
+        <GoalForm action="add" closeModal={closeModal} />
       </Modal>
     </header>
   );

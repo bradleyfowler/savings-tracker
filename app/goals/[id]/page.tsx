@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 
 import { Deposit } from "@/types/goals";
 
@@ -48,7 +47,7 @@ const GoalPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <div>
-      <GoalDetailsHeader goalId={goal.id} goalName={goal.name} />
+      <GoalDetailsHeader goal={goal} />
       <h1 className="text-preset-1-mobile">{goal?.name}</h1>
       <div className="flex gap-4 mb-10">
         <p className="text-preset-6 text-[#898A8B]">{goal?.deadline}</p>
