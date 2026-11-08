@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import type { ReactNode, RefObject } from "react";
 
 type ModalProps = {
@@ -28,7 +29,7 @@ const Modal = ({
           className="hover:cursor-pointer"
           onClick={closeModal}
         >
-          <img src="/icon-cross.svg" alt="Close" />
+          <Image src="/icon-cross.svg" height={20} width={20} alt="Close" />
         </button>
       </div>
       <p>{description}</p>

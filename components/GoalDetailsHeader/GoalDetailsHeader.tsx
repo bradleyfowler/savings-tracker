@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useRef, useState } from "react";
 
 import { Goal } from "@/types/goals";
@@ -35,10 +36,11 @@ const GoalDetailsHeader = ({ goal }: GoalDetailsProps) => {
           className="flex flex-row gap-1 text-preset-6 text-[#898A8B]"
           href="/"
         >
-          <img
+          <Image
             src="/icon-chevron-left.svg"
             alt="Chevron Left"
-            className="h-5 w-5"
+            height={20}
+            width={20}
           />
           Back
         </Link>

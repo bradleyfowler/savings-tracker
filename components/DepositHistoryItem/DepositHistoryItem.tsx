@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type DepositHistoryItemProps = {
   note: string | null;
   amount: number;
@@ -13,10 +15,11 @@ const DepositHistoryItem = ({
     <li className="grid grid-cols-2">
       <div className="flex gap-2 flex-row">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1f1f1f]">
-          <img
+          <Image
             src="/icon-arrow-down.svg"
             alt="Down Arrow"
-            className="h-5 w-5"
+            height={20}
+            width={20}
           />
         </div>
         <div>

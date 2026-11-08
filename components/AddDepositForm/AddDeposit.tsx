@@ -2,8 +2,6 @@
 import { SubmitEvent } from "react";
 import { useParams } from "next/navigation";
 
-import { Deposit } from "@/types/goals";
-
 import Button from "@/components/Button/Button";
 import createDeposit from "@/actions/deposits";
 
