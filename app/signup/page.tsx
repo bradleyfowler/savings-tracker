@@ -13,7 +13,7 @@ export default function Signup() {
         </p>
       </div>
       <div className="md:flex-3">
-        <div className="items-center gap-3">
+        <div className="flex items-center gap-3">
           <Image
             src="/logo-small.svg"
             alt="Savings Tracker Logo"
