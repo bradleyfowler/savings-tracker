@@ -43,6 +43,7 @@ dialog::backdrop {
   font-size: 64px;
   font-weight: 600;
   letter-spacing: -2px;
+  line-height: 120%;
 }
 
 .text-preset-1-mobile {
