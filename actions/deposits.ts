@@ -2,7 +2,6 @@
 import { revalidatePath } from "next/cache";
 
 import { getAuthenticatedUser } from "@/helpers/auth";
-import { addDeposit } from "@/helpers/queries";
 
 export default async function createDeposit(formData: FormData, id: string) {
   const { supabase, user } = await getAuthenticatedUser();
@@ -10,17 +9,21 @@ export default async function createDeposit(formData: FormData, id: string) {
   if (!user) {
     return { error: "You must be signed in to create a deposit." };
   }
-  
+
   const amount = Number(formData.get("amount"));
   const note = String(formData.get("note"));
 
-  await addDeposit(supabase, {
+  const { data, error } = await supabase.from("deposits").insert({
     amount,
     goal_id: id,
     note,
   });
 
+  if (error) {
+    throw new Error("Failed to create deposit.");
+  }
+
   revalidatePath("/");
 
-  return;
+  return data;
 }
