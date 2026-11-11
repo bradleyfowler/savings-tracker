@@ -5,11 +5,11 @@ import Button from "@/components/Button/Button";
 
 export default function Signup() {
   return (
-    <div className="md:mx-auto md:flex md:max-w-7xl md:items-center md:gap-10">
+    <div className="px-4 py-8 md:mx-auto md:flex md:max-w-7xl md:items-center md:gap-10">
       <div className="hidden md:flex md:h-205 md:flex-2 md:items-center md:justify-center md:self-stretch md:rounded-2xl md:bg-linear-to-r md:from-[#b92b09] md:to-[#ff5722] md:p-8">
         <p className="text-preset-1">
-          &quot;A budget is telling your money where to go instead of wondering where
-          it went.&quot; 
+          &quot;A budget is telling your money where to go instead of wondering
+          where it went.&quot;
         </p>
       </div>
       <div className="md:flex-3">

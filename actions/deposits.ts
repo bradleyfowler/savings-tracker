@@ -1,10 +1,14 @@
 "use server";
 import { revalidatePath } from "next/cache";
 
-import { getAuthenticatedUser } from "@/helpers/auth";
+import { createClient } from "@/helpers/supabase/server";
 
 export default async function createDeposit(formData: FormData, id: string) {
-  const { supabase, user } = await getAuthenticatedUser();
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) {
     return { error: "You must be signed in to create a deposit." };

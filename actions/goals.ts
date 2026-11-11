@@ -2,10 +2,14 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { getAuthenticatedUser } from "@/helpers/auth";
+import { createClient } from "@/helpers/supabase/server";
 
 export default async function createGoal(formData: FormData) {
-  const { supabase, user } = await getAuthenticatedUser();
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) {
     return { error: "You must be signed in to create a goal." };
@@ -36,7 +40,11 @@ export default async function createGoal(formData: FormData) {
 }
 
 export async function editGoal(formData: FormData, goalId: string) {
-  const { supabase, user } = await getAuthenticatedUser();
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) {
     return { error: "You must be signed in to edit a goal." };
@@ -69,7 +77,11 @@ export async function editGoal(formData: FormData, goalId: string) {
 }
 
 export async function deleteGoal(goalId: string) {
-  const { supabase, user } = await getAuthenticatedUser();
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) {
     return { error: "You must be signed in to delete a goal." };

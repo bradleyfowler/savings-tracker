@@ -3,9 +3,11 @@ import Link from "next/link";
 
 import Button from "@/components/Button/Button";
 
+import { login } from "@/actions/authentication";
+
 export default function Login() {
   return (
-    <div className="md:mx-auto md:flex md:max-w-7xl md:items-center md:gap-10">
+    <div className="px-4 py-8 md:mx-auto md:flex md:max-w-7xl md:items-center md:gap-10">
       <div className="hidden md:flex md:h-205 md:flex-2 md:items-center md:justify-center md:self-stretch md:rounded-2xl md:bg-linear-to-r md:from-[#b92b09] md:to-[#ff5722] md:p-8">
         <p className="text-preset-1">
           &quot;The goal isn&apos;t to be rich. It&apos;s to have enough.&quot;
@@ -25,7 +27,7 @@ export default function Login() {
           <h1 className="text-preset-2 mb-4">Welcome back</h1>
           <h2 className="text-preset-5">Sign in to your account</h2>
         </div>
-        <form className="mb-4">
+        <form className="mb-4" action={login}>
           <div className="mb-6 flex flex-col gap-2">
             <label htmlFor="amount">Email address</label>
             <input
@@ -40,6 +42,7 @@ export default function Login() {
               className="rounded-md border border-[#3c3b40] bg-[#2d2b31] px-4 py-3 text-white outline-none"
               name="password"
               required
+              type="password"
             />
           </div>
           <p className="mb-6">
@@ -53,7 +56,7 @@ export default function Login() {
         </form>
 
         <p className="text-center">
-          Already have an account? <Link href="/login">Sign in</Link>
+          Don&apos;t have an account? <Link href="/signup">Create one</Link>
         </p>
       </div>
     </div>

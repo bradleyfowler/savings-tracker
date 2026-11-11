@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 
 import { Deposit } from "@/types/goals";
 
@@ -6,19 +6,30 @@ import AddDepositForm from "@/components/AddDepositForm/AddDeposit";
 import DepositHistoryItem from "@/components/DepositHistoryItem/DepositHistoryItem";
 import GoalDetailsHeader from "@/components/GoalDetailsHeader/GoalDetailsHeader";
 
-import { getGoalProgress } from "@/helpers/goal-calculations";
+import { createClient } from "@/helpers/supabase/server";
 import { getGoal, getGoalDeposits } from "@/helpers/queries";
-import { getAuthenticatedUser } from "@/helpers/auth";
+import { getGoalProgress } from "@/helpers/goal-calculations";
 
 const GoalPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
-  const { supabase, user } = await getAuthenticatedUser();
 
-  if (!user) {
-    notFound();
+  const supabase = await createClient();
+
+  const { data, error } = await supabase.auth.getClaims();
+
+  if (error || !data?.claims) {
+    redirect("/login");
   }
 
-  const goal = await getGoal(id, user.id, supabase);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    throw new Error("No user")
+  }
+
+  const goal = await getGoal(id, user?.id, supabase);
   const goalDeposits = await getGoalDeposits(supabase, id);
 
   const { saved, percentage } = getGoalProgress(
@@ -49,7 +60,7 @@ const GoalPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     <div>
       <GoalDetailsHeader goal={goal} />
       <h1 className="text-preset-1-mobile">{goal?.name}</h1>
-      <div className="flex gap-4 mb-10">
+      <div className="mb-10 flex gap-4">
         <p className="text-preset-6 text-[#898A8B]">{goal?.deadline}</p>
         <p className="text-preset-6 text-[#898A8B]">
           Created{" "}
@@ -60,23 +71,23 @@ const GoalPage = async ({ params }: { params: Promise<{ id: string }> }) => {
           })}
         </p>
       </div>
-      <div className="rounded-2xl mb-6 bg-[#1f1f1f] border border-solid border-[#3C3B40]">
+      <div className="mb-6 rounded-2xl border border-solid border-[#3C3B40] bg-[#1f1f1f]">
         <div className="p-4">
-          <p className="mb-4 text-preset-1-mobile text-[#ff5722]">
+          <p className="text-preset-1-mobile mb-4 text-[#ff5722]">
             {Math.round(percentage)}%
           </p>
           <div className="mb-4 h-3 w-full overflow-hidden rounded-full bg-[#2D2B31]">
             <div
-              className="h-3 rounded-full transition-all bg-[#ff5722]"
+              className="h-3 rounded-full bg-[#ff5722] transition-all"
               style={{ width: `${Math.min(percentage, 100)}%` }}
             />
           </div>
           <div className="flex flex-row justify-between">
-            <p className="flex flex-col text-preset-6">
+            <p className="text-preset-6 flex flex-col">
               £{saved}
               <span className="text-[#898A8B]">Saved so far</span>
             </p>
-            <p className="flex flex-col text-preset-6">
+            <p className="text-preset-6 flex flex-col">
               of £{goal?.target_amount}
               <span className="text-[#898A8B]">Target</span>
             </p>
@@ -84,7 +95,7 @@ const GoalPage = async ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
       </div>
 
-      <div className="rounded-2xl mb-6 bg-[#1f1f1f] border border-solid border-[#3C3B40]">
+      <div className="mb-6 rounded-2xl border border-solid border-[#3C3B40] bg-[#1f1f1f]">
         <AddDepositForm />
       </div>
 
