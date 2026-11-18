@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import Button from "@/components/Button/Button";
+import SignupForm from "@/components/SignupForm/SignupForm";
 
 export default function Signup() {
   return (
@@ -26,35 +26,7 @@ export default function Signup() {
           <h1 className="text-preset-2 mb-4">Create your account</h1>
           <h2 className="text-preset-5">Start tracking your savings goals</h2>
         </div>
-        <form className="mb-4">
-          <div className="mb-6 flex flex-col gap-2">
-            <label htmlFor="name">Full name</label>
-            <input
-              className="rounded-lg border border-[#3c3b40] bg-[#2d2b31] px-4 py-3 text-white outline-none"
-              name="name"
-              required
-            />
-          </div>
-          <div className="mb-6 flex flex-col gap-2">
-            <label htmlFor="amount">Email address</label>
-            <input
-              className="rounded-md border border-[#3c3b40] bg-[#2d2b31] px-4 py-3 text-white outline-none"
-              name="email"
-              required
-            />
-          </div>
-          <div className="mb-6 flex flex-col gap-2">
-            <label htmlFor="deadline">Password</label>
-            <input
-              className="rounded-md border border-[#3c3b40] bg-[#2d2b31] px-4 py-3 text-white outline-none"
-              name="password"
-              required
-            />
-          </div>
-          <div className="flex flex-row justify-end gap-4">
-            <Button fullWidth>Create account</Button>
-          </div>
-        </form>
+        <SignupForm />
 
         <p className="text-center">
           Already have an account? <Link href="/login">Sign in</Link>

@@ -7,6 +7,7 @@ type ButtonProps = {
   variant?: ButtonVariant;
   fullWidth?: boolean;
   onClick?: () => void;
+  disabled?: boolean;
 };
 
 const variantClasses: Record<ButtonVariant, string> = {
@@ -21,12 +22,12 @@ const Button = ({
   children,
   fullWidth = false,
   onClick,
+  disabled,
 }: ButtonProps) => {
   return (
     <button
-      className={`flex items-center gap-2 justify-center hover:cursor-pointer
-        ${fullWidth ? "w-full" : ""}
-        ${variantClasses[variant]}`}
+      disabled={disabled}
+      className={`flex items-center justify-center gap-2 hover:cursor-pointer ${fullWidth ? "w-full" : ""} ${variantClasses[variant]} disabled:cursor-not-allowed disabled:border-2 disabled:border-[#3C3B40] disabled:bg-[#1F1F1F] disabled:text-white`}
       onClick={onClick}
     >
       {children}
