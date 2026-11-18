@@ -1,9 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import Button from "@/components/Button/Button";
-
-import { login } from "@/actions/authentication";
+import LoginForm from "@/components/LoginForm/LoginForm";
 
 export default function Login() {
   return (
@@ -27,34 +25,7 @@ export default function Login() {
           <h1 className="text-preset-2 mb-4">Welcome back</h1>
           <h2 className="text-preset-5">Sign in to your account</h2>
         </div>
-        <form className="mb-4" action={login}>
-          <div className="mb-6 flex flex-col gap-2">
-            <label htmlFor="amount">Email address</label>
-            <input
-              className="rounded-md border border-[#3c3b40] bg-[#2d2b31] px-4 py-3 text-white outline-none"
-              name="email"
-              required
-            />
-          </div>
-          <div className="mb-6 flex flex-col gap-2">
-            <label htmlFor="deadline">Password</label>
-            <input
-              className="rounded-md border border-[#3c3b40] bg-[#2d2b31] px-4 py-3 text-white outline-none"
-              name="password"
-              required
-              type="password"
-            />
-          </div>
-          <p className="mb-6">
-            <Link className="mb-4" href="/forgot">
-              Forgot Password
-            </Link>
-          </p>
-          <div className="flex flex-row justify-end gap-4">
-            <Button fullWidth>Sign in</Button>
-          </div>
-        </form>
-
+        <LoginForm />
         <p className="text-center">
           Don&apos;t have an account? <Link href="/signup">Create one</Link>
         </p>
