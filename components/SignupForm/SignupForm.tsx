@@ -5,6 +5,7 @@ import { signup } from "@/actions/authentication";
 import type { SignupState } from "@/actions/authentication";
 
 import Button from "@/components/Button/Button";
+import Input from "@/components/Input/Input";
 
 const initialState: SignupState = {
   error: null,
@@ -31,33 +32,13 @@ export default function SignupForm() {
   return (
     <form className="mb-4" action={formAction}>
       <div className="mb-6 flex flex-col gap-2">
-        <label htmlFor="name">Full name</label>
-        <input
-          className="rounded-lg border border-[#3c3b40] bg-[#2d2b31] px-4 py-3 text-white outline-none"
-          name="name"
-          id="name"
-          required
-        />
+        <Input name="name" label="Full name" isRequired />
       </div>
       <div className="mb-6 flex flex-col gap-2">
-        <label htmlFor="email">Email address</label>
-        <input
-          className="rounded-md border border-[#3c3b40] bg-[#2d2b31] px-4 py-3 text-white outline-none"
-          name="email"
-          type="email"
-          id="email"
-          required
-        />
+        <Input name="email" label="Email address" type="email" isRequired />
       </div>
       <div className="mb-6 flex flex-col gap-2">
-        <label htmlFor="password">Password</label>
-        <input
-          className="rounded-md border border-[#3c3b40] bg-[#2d2b31] px-4 py-3 text-white outline-none"
-          name="password"
-          type="password"
-          id="password"
-          required
-        />
+        <Input name="password" label="Password" type="password" isRequired />
       </div>
       <div className="flex flex-row justify-end gap-4">
         <Button disabled={isPending} fullWidth>

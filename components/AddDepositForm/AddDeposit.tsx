@@ -2,8 +2,10 @@
 import { SubmitEvent } from "react";
 import { useParams } from "next/navigation";
 
-import Button from "@/components/Button/Button";
 import createDeposit from "@/actions/deposits";
+
+import Button from "@/components/Button/Button";
+import Input from "@/components/Input/Input";
 
 const AddDepositForm = () => {
   const { id } = useParams<{ id: string }>();
@@ -15,7 +17,6 @@ const AddDepositForm = () => {
 
     await createDeposit(new FormData(form), id);
 
-
     form.reset();
   };
 
@@ -23,19 +24,13 @@ const AddDepositForm = () => {
     <div className="p-4">
       <h2 className="text-preset-4">Add deposit</h2>
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-2 mb-6">
-          <label htmlFor="name">Amount</label>
-          <input
-            className="rounded-lg border border-[#3c3b40] bg-[#2d2b31] px-4 py-3 text-white outline-none"
-            name="amount"
-            placeholder="0.00"
-          />
+        <div className="mb-6 flex flex-col gap-2">
+          <Input name="amount" label="Amount" placeholder="0.00" isRequired />
         </div>
-        <div className="flex flex-col gap-2 mb-6">
-          <label htmlFor="note">Note (optional)</label>
-          <input
-            className="rounded-md border border-[#3c3b40] bg-[#2d2b31] px-4 py-3 text-white outline-none"
+        <div className="mb-6 flex flex-col gap-2">
+          <Input
             name="note"
+            label="Note (optional)"
             placeholder="e.g. Monthly savings"
           />
         </div>

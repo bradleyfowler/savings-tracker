@@ -3,6 +3,7 @@ import type { Goal } from "@/types/goals";
 import createGoal, { editGoal } from "@/actions/goals";
 
 import Button from "@/components/Button/Button";
+import Input from "@/components/Input/Input";
 
 import type { SubmitEvent } from "react";
 
@@ -36,35 +37,33 @@ const GoalForm = ({ closeModal, goal, action }: ModalProps) => {
 
   return (
     <form onSubmit={(event) => handleSubmit(event, action)}>
-      <div className="flex flex-col gap-2 mb-6">
-        <label htmlFor="name">Goal name</label>
-        <input
-          className="rounded-lg border border-[#3c3b40] bg-[#2d2b31] px-4 py-3 text-white outline-none"
+      <div className="mb-6 flex flex-col gap-2">
+        <Input
           name="name"
           defaultValue={goal?.name ?? ""}
           placeholder="e.g. Emergency Fund"
-          required
+          isRequired
+          label="Goal Name"
         />
       </div>
-      <div className="flex flex-col gap-2 mb-6">
-        <label htmlFor="amount">Target amount</label>
-        <input
-          className="rounded-md border border-[#3c3b40] bg-[#2d2b31] px-4 py-3 text-white outline-none"
+      <div className="mb-6 flex flex-col gap-2">
+        <Input
           name="amount"
           defaultValue={goal?.target_amount ?? ""}
           placeholder="0.00"
-          required
+          isRequired
+          label="Target amount"
         />
       </div>
-      <div className="flex flex-col gap-2 mb-6">
-        <label htmlFor="deadline">Deadline (optional)</label>
-        <input
-          className="rounded-md border border-[#3c3b40] bg-[#2d2b31] px-4 py-3 text-white outline-none"
+      <div className="mb-6 flex flex-col gap-2">
+        <Input
           name="deadline"
           defaultValue={goal?.deadline ?? ""}
+          label="Deadline (optional)"
+          placeholder="Select a date"
         />
       </div>
-      <div className="flex flex-row gap-4 justify-end">
+      <div className="flex flex-row justify-end gap-4">
         <Button variant="secondary" onClick={closeModal}>
           Cancel
         </Button>

@@ -5,6 +5,7 @@ import { useActionState } from "react";
 import { login } from "@/actions/authentication";
 
 import Button from "@/components/Button/Button";
+import Input from "@/components/Input/Input";
 
 type LoginState = {
   error: string | null;
@@ -18,22 +19,10 @@ export default function LoginForm() {
   return (
     <form className="mb-4" action={formAction}>
       <div className="mb-4 flex flex-col gap-2">
-        <label htmlFor="amount">Email address</label>
-        <input
-          className="rounded-md border border-[#3c3b40] bg-[#2d2b31] px-4 py-3 text-white outline-none"
-          name="email"
-          required
-          type="email"
-        />
+        <Input name="email" label="Email address" type="email" isRequired />
       </div>
       <div className="mb-6 flex flex-col gap-2">
-        <label htmlFor="deadline">Password</label>
-        <input
-          className="rounded-md border border-[#3c3b40] bg-[#2d2b31] px-4 py-3 text-white outline-none"
-          name="password"
-          required
-          type="password"
-        />
+        <Input name="password" label="Password" type="password" isRequired />
       </div>
 
       <div className="mb-6 flex items-center gap-4">
