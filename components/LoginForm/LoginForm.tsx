@@ -14,7 +14,7 @@ type LoginState = {
 const initialState: LoginState = { error: null };
 
 export default function LoginForm() {
-  const [state, formAction] = useActionState(login, initialState);
+  const [state, formAction, isPending] = useActionState(login, initialState);
 
   return (
     <form className="mb-4" action={formAction}>
@@ -38,7 +38,9 @@ export default function LoginForm() {
       </div>
 
       <div className="flex flex-row justify-end gap-4">
-        <Button fullWidth>Sign in</Button>
+        <Button disabled={isPending} fullWidth>
+          {isPending ? "Signing in..." : "Sign in"}
+        </Button>
       </div>
     </form>
   );
